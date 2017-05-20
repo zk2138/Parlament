@@ -1,0 +1,1 @@
+IntDict size=13 { "#ZupancicJoze1936": 5714, "#KopacJanez1961": 3413, "#RoginaBogo1947": 1062, "#PrelovecValentin1934": 596, "#DobravcTatalovicIrena": 503, "#PucVlado1941": 459, "#ToplekDanilo1952": 372, "#BostjancicFranc1935": 280, "#DrameLeopold1935": 265, "#JakicRoman1967": 262, "#ZlobecJasaL1951": 233, "#BanFranc1938": 167, "#ArzensekJoze1942": 164 }

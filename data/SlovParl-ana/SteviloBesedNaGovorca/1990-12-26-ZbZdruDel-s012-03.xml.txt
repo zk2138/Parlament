@@ -1,0 +1,1 @@
+IntDict size=14 { "#ZupancicJoze1936": 5713, "#BanFranc1938": 1511, "#GrasicFranc1941": 1229, "#MarkicAlenka": 1047, "#BizjakDavorin1938": 556, "#MlinarMartin": 410, "#BrglezStanislav1936": 378, "#ArzensekJoze1942": 364, "#StrucMilan": 247, "#StarcMarjan1942": 220, "#PirsJurij1939": 196, "#BolicMuharem1936": 140, "#PerkoFranc1942": 129, "#OstermanAnka1940": 125 }

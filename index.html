@@ -1,0 +1,180 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/bootstrap.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/bootstrap.min.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/jquery-3.2.1.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/npm.js"></script>
+  <script language="javascript" type="text/javascript" src="Parlament.js"></script>
+  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+    <script language="javascript" type="text/javascript" src="libraries/bootstrap.js"></script>
+    <script language="javascript" type="text/javascript"  src="libraries/jquery-3.2.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- This line removes any default padding and style.
+         You might only need one of these values set. -->
+    <style>
+
+        body {
+            padding: 0;
+            margin: 0;
+            /*background-color: #ffffff;*/
+            background-color: #efefef;
+        }
+
+        #izbiraDatuma {
+            float: left;
+            height: 30vh;
+            margin: 0;
+            padding: 1em;
+            /*background-color: rgba(0, 0, 0, 0.88);*/
+            background-color: #22252C;
+            color: #eaeaea;
+            border-bottom: thin solid;
+
+            max-height: 30vh;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        #izbraneSeje {
+            float: left;
+            height: 20vh;
+            margin: 0;
+            padding: 1em;
+            padding-left: 2em;
+            padding-right: 2em;
+            word-break: normal;
+            font-family: "Helvetica";
+            /*background-color: rgba(0, 0, 0, 0.88);*/
+            background-color: #22252C;
+            color: #eaeaea;
+            border-bottom: thin solid;
+        }
+
+        #izbiraPrikaza {
+            float: left;
+            height:50vh;
+            margin: 0;
+            padding: 1em;
+            /*background-color: rgba(0, 0, 0, 0.88);*/
+            background-color: #22252C;
+            color: #eaeaea;
+        }
+
+        #p5Canvas {
+            border: none;
+        }
+
+        #danGroup, #mesecGroup, #letoGroup, #izberiButton {
+            font-family: "Helvetica";
+        }
+
+        #danL, #mesecL, #letoL {
+            text-align: left;
+        }
+
+        .no-right-padding {
+            padding-right: 0px;
+        }
+
+        .no-left-padding {
+            padding-left: 0px;
+        }
+
+        .btn-xl {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 14px;
+            border-radius: 0px;
+            word-spacing: 0.3em;
+            font-family: "Helvetica";
+            color: #eaeaea;
+            background-color: rgba(12, 12, 12, 0.88);
+            border-color: rgba(12, 12, 12, 0.88);
+        }
+
+        .btn-clr {
+            background-color: #00cc00;
+        }
+
+        .btn-clr:hover {
+            background-color: #009900;
+        }
+
+        .btn-clr:focus {
+            background-color: #00cc00;
+        }
+
+    </style>
+</head>
+
+<body onload="loadTxt(); colorButton(1, 5)">
+
+<div class="row" style="width: 100vw">
+    <div class="col-lg-2 col-md-2 col-sm-2 no-right-padding" id="desniStolpec">
+        <div class="col-lg-12 col-md-12 col-sm-12" id="izbiraDatuma">
+            <form class="form-horizontal">
+                <div class="form-group" id="danGroup">
+                    <label class="control-label col-sm-3" id="danL" for="dan">Dan:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" id="dan" placeholder="01-31">
+                    </div>
+                </div>
+                <div class="form-group" id="mesecGroup">
+                        <label class="control-label col-sm-3" id="mesecL" for="mesec">Mesec:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" id="mesec" placeholder="01-12">
+                    </div>
+                </div>
+                <div class="form-group" id="letoGroup">
+                    <label class="control-label col-sm-3" id="letoL" for="leto">Leto:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control input-sm" id="leto" placeholder="1990-1992">
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-block btn-clr" id="izberiButton" onclick="myFunction()">
+                    Izberi
+                </button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="izbraneSeje">
+                <!--Izbrana je sledeča seja-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="izbiraPrikaza">
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira1" onclick="clearIzbraneSejeText(); colorButton(1, 5); loadAll(1)">
+                    Število tem na sejah
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira2" onclick="clearIzbraneSejeText(); colorButton(2, 5); loadAll(2);">
+                    <!-- Druga izbira kar že pač bo -->
+                    Število besed na sejah
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira4" onclick="clearIzbraneSejeText(); colorButton(4, 5); loadAll(3)">
+                <!-- Četrta izbira kar že pač bo -->
+                Razmerje vseh in <br> unikatnih besed
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira3" onclick="colorButton(3, 5); sestaviTempDir(1)">
+                    <!-- Tretja izbira kar že pač bo -->
+                    Števila besed na govorca
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira5" onclick="colorButton(5, 5); sestaviTempDir(2)">
+                    <!-- Tretja izbira kar že pač bo -->
+                    Dolžine besed za sejo
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-10 no-left-padding" id="p5Canvas">
+        <!-- Tukaj gre canvas iz p5 skripte -->
+    </div>
+</div>
+
+</body>
+</html>

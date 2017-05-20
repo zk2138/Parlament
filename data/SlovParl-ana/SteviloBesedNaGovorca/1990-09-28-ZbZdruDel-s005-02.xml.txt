@@ -1,0 +1,1 @@
+IntDict size=4 { "#ZupancicJoze1936": 1995, "#MlinarMartin": 800, "#KrajecMirko1954": 136, "#SterAndrej1958": 3 }

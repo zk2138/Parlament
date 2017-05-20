@@ -1,0 +1,1 @@
+IntDict size=7 { "#ZupancicJoze1936": 1272, "#ZabukovecZdravko1940": 713, "#RudolfFrancek1944": 633, "#ZlobecJasaL1951": 517, "#MurenAndrej1953": 464, "#RodePrimoz1942": 134, "#ZidanikAnton1942": 120 }

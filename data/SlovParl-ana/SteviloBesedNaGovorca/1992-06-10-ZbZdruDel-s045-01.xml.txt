@@ -1,0 +1,1 @@
+IntDict size=9 { "#ZupancicJoze1936": 1870, "#SterAndrej1958": 758, "#ZabukovecZdravko1940": 443, "#OstermanAnka1940": 261, "#BerlecJoze1949": 223, "#MurenAndrej1953": 217, "#MakViljem1937": 196, "#PerkoFranc1942": 157, "#BizjakDavorin1938": 152 }
