@@ -57,7 +57,7 @@
 
         #izbiraPrikaza {
             float: left;
-            height:50vh;
+            height:22vh;
             margin: 0;
             padding: 1em;
             /*background-color: rgba(0, 0, 0, 0.88);*/
@@ -65,16 +65,211 @@
             color: #eaeaea;
         }
 
+        #helpMe {
+            float: left;
+            height: 6vh;
+            margin: 0;
+            padding-right: 2em;
+            background-color: #22252C;
+            color: #eaeaea;
+            text-align: right;
+        }
+
+        #izbiraPrikazaVseh {
+            float: left;
+            height:18vh;
+            margin: 0;
+            padding: 1em;
+            /*background-color: rgba(0, 0, 0, 0.88);*/
+            background-color: #22252C;
+            color: #eaeaea;
+            border-bottom: medium solid;
+        }
+
+        #naslovProjekta {
+            height:4vh;
+            text-align: center;
+            background-color: #000000;
+            color: #eaeaea;
+            word-spacing: 0.3em;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            border-bottom: thin solid;
+        }
+
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        #textIzbiraVsi{
+            position: absolute;
+            top: 9vh;
+            left: 22.5vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezVsi {
+            content:'';
+            position:absolute;
+            left:0vw;
+            right:84.3vw;
+            bottom:79vh;
+            height:16.5vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
+        #textGraf{
+            position: absolute;
+            top: 14vh;
+            left: 50vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            text-align: center;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezGraf {
+            content:'';
+            position:absolute;
+            left:16.1vw;
+            right:0.7vw;
+            bottom:46.5vh;
+            height:37vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
+        #textIzbiraSeja{
+            position: absolute;
+            top: 77vh;
+            left: 22.6vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            text-align: center;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezIzbiraSeje {
+            content:'';
+            position:absolute;
+            left:0vw;
+            right:84.3vw;
+            bottom:15vh;
+            height:12.5vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
+        #textOpombe{
+            position: absolute;
+            top: 62vh;
+            left: 21.7vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezOpombe {
+            content:'';
+            position:absolute;
+            left:0vw;
+            right:84.3vw;
+            bottom:30.5vh;
+            height:16.5vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
+        #textPomoc{
+            position: absolute;
+            top: 95.5vh;
+            left: 19.8vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.75vw;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezPomoc {
+            content:'';
+            position:absolute;
+            left:10.5vw;
+            right:84.8vw;
+            bottom:2.2vh;
+            height:3.5vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
+        #textVnosDatuma{
+            position: absolute;
+            top: 47.2vh;
+            left: 8vw;
+            font-family: "Helvetica";
+            font-size: 14px;
+            font-size:0.65vw;
+            text-align: center;
+            color: white;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        #izrezVnosDatuma {
+            content:'';
+            position:absolute;
+            left:0vw;
+            right:84.3vw;
+            bottom:55.1vh;
+            height:22.7vh;
+            border: 2px solid white;
+            z-index: 3;
+        }
+
         #p5Canvas {
             border: none;
+            height: 100vh;
         }
 
         #danGroup, #mesecGroup, #letoGroup, #izberiButton {
+            font-size: 14px;
+            font-size: 0.75vw;
             font-family: "Helvetica";
         }
 
         #danL, #mesecL, #letoL {
             text-align: left;
+        }
+
+        #dan, #mesec, #leto, #izberiButton {
+            height: 12%;
         }
 
         .no-right-padding {
@@ -86,9 +281,12 @@
         }
 
         .btn-xl {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-top: 0.3vw;
+            padding-bottom: 0.3vw;
             font-size: 14px;
+            font-size: 0.75vw;
             border-radius: 0px;
             word-spacing: 0.3em;
             font-family: "Helvetica";
@@ -112,10 +310,31 @@
     </style>
 </head>
 
-<body onload="loadTxt(); colorButton(1, 5)">
+<body onload="loadTxt(); colorButton(1, 5); on()">
 
 <div class="row" style="width: 100vw">
     <div class="col-lg-2 col-md-2 col-sm-2 no-right-padding" id="desniStolpec">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="naslovProjekta">
+                <!-- Tukaj gre canvas iz p5 skripte -->
+                Vizualizacija slovenskega parlamenta <br> v letih 1990-92
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="izbiraPrikazaVseh">
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira1" onclick="clearIzbraneSejeText(); colorButton(1, 5); loadAll(1)">
+                    Število tem na sejah
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira2" onclick="clearIzbraneSejeText(); colorButton(2, 5); loadAll(2);">
+                    <!-- Druga izbira kar že pač bo -->
+                    Število besed na sejah
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira4" onclick="clearIzbraneSejeText(); colorButton(4, 5); loadAll(3)">
+                    <!-- Četrta izbira kar že pač bo -->
+                    Razmerje vseh in <br> unikatnih besed
+                </button>
+            </div>
+        </div>
         <div class="col-lg-12 col-md-12 col-sm-12" id="izbiraDatuma">
             <form class="form-horizontal">
                 <div class="form-group" id="danGroup">
@@ -149,31 +368,56 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12" id="izbiraPrikaza">
-                <button type="button" class="btn btn-default btn-block btn-xl" id="izbira1" onclick="clearIzbraneSejeText(); colorButton(1, 5); loadAll(1)">
+               <!-- <button type="button" class="btn btn-default btn-block btn-xl" id="izbira1" onclick="clearIzbraneSejeText(); colorButton(1, 5); loadAll(1)">
                     Število tem na sejah
                 </button>
                 <button type="button" class="btn btn-default btn-block btn-xl" id="izbira2" onclick="clearIzbraneSejeText(); colorButton(2, 5); loadAll(2);">
-                    <!-- Druga izbira kar že pač bo -->
+                    &lt;!&ndash; Druga izbira kar že pač bo &ndash;&gt;
                     Število besed na sejah
                 </button>
                 <button type="button" class="btn btn-default btn-block btn-xl" id="izbira4" onclick="clearIzbraneSejeText(); colorButton(4, 5); loadAll(3)">
-                <!-- Četrta izbira kar že pač bo -->
+                &lt;!&ndash; Četrta izbira kar že pač bo &ndash;&gt;
                 Razmerje vseh in <br> unikatnih besed
-                </button>
+                </button>-->
                 <button type="button" class="btn btn-default btn-block btn-xl" id="izbira3" onclick="colorButton(3, 5); sestaviTempDir(1)">
                     <!-- Tretja izbira kar že pač bo -->
-                    Števila besed na govorca
+                    Število besed na govorca
                 </button>
                 <button type="button" class="btn btn-default btn-block btn-xl" id="izbira5" onclick="colorButton(5, 5); sestaviTempDir(2)">
                     <!-- Tretja izbira kar že pač bo -->
-                    Dolžine besed za sejo
+                    Dolžina izgovorjenih <br> besed na seji
                 </button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="helpMe">
+                <button type='button' class='btn btn-link' style='color: #eaeaea; font-family: "Helvetica"; font-size:0.75vw;' onclick='on()'>Pomoč</button>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-10 col-md-10 col-sm-10 no-left-padding" id="p5Canvas">
-        <!-- Tukaj gre canvas iz p5 skripte -->
+    <div class="col-lg-10 col-md-10 col-sm-10 no-left-padding" id="DesnaStran">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" id="p5Canvas">
+                <!-- Tukaj gre canvas iz p5 skripte -->
+            </div>
+        </div>
     </div>
+</div>
+
+<div id="overlay" onclick="off()">
+    <div id="textIzbiraVsi">&nbsp;&nbsp;&nbsp;&nbsp;Klikni na gumb in si poglej kako se </br>&lArr; število tem, razmerje besed <br>&nbsp;&nbsp;&nbsp;&nbsp;in število besed spreminja skozi leta.</div>
+    <div id="textGraf">Tukaj se glede na pritisnjen gumb izriše graf, ki te zanima.<br> &dArr;</div>
+    <div id="textIzbiraSeja">&lArr; Ko imaš izbrano določeno sejo lahko <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tukaj izbereš bolj podrobne informacije.</div>
+    <div id="textPomoc">&lArr; Prikaži / skrij pomoč</div>
+    <div id="textOpombe">&lArr; V primeru napačnega napak, se<br>&nbsp;&nbsp;&nbsp;&nbsp;tukaj izpiše besedilo o napaki.</div>
+    <div id="textVnosDatuma">&uArr;<br>Če želiš natančne podatke o posamezni seji vpiši <br>datum ali klikni v grafu na stolpec, ki te zanima.</div>
+
+    <div id="izrezVsi"></div>
+    <div id="izrezGraf"></div>
+    <div id="izrezIzbiraSeje"></div>
+    <div id="izrezPomoc"></div>
+    <div id="izrezOpombe"></div>
+    <div id="izrezVnosDatuma"></div>
 </div>
 
 </body>

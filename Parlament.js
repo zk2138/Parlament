@@ -1,13 +1,15 @@
 var fr = 30; //starting FPS
 var clr;
 var clr2;
-
 var clrB;
 //var months = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Avg", "Sep", "Okt", "Nov", "Dec"];
 var tab1990 = [0, 0, 0, 0, 3, 2, 5, 0, 2, 4, 4, 8];
 var tab1991 = [3, 1, 8, 2, 5, 4, 5, 2, 4, 7, 4, 7];
 var tab1992 = [4, 2, 8, 2, 2, 3, 9, 0, 6, 8, 8, 0];
 
+var najvecja_visina = "-211";
+var stevilo_tem ="32";
+var index_naslova_grafa = 0;
 var izhodi = [];
 var tabG = [];
 var tabS = [];
@@ -19,6 +21,15 @@ var dirTemp = "";
 var w;
 var dr = 0;
 var maxNorm = 1;
+var mode = 1;
+// odmik = 10 + x1
+var odmik = 50;
+
+var dan_test_klik ="";
+var mesec_test_klik ="";
+var leto_test_klik ="";
+
+var windowHeight = $( window ).height();
 
 function setup() {
     noStroke();
@@ -26,8 +37,9 @@ function setup() {
     var elem1 = document.getElementById("desniStolpec");
     var style = window.getComputedStyle(elem1, null).width;
     w = windowWidth - parseFloat(style);
+    //var canvas = createCanvas(w, windowHeight);
+    windowHeight = $( window ).height();
     var canvas = createCanvas(w, windowHeight);
-
     //barva
     clr = color(31,31,31);
     //clr = color(149, 147, 147);
@@ -45,25 +57,26 @@ function draw() {
     var norm = 0;
     var visK = 35;
     var sirK = 200;
-
     if(dr == 1) {
         sT = "Število tem: ";
         norm = 50;
         sirK = 110;
+        //naslov_grafa(1);
     } else if(dr == 2) {
         sT = "Število besed: ";
-        norm = 45000;
+        norm = 60000;
         sirK = 145;
+        //naslov_grafa(2);
     } else if(dr == 3) {
         sT = "Število besed: ";
         sU = "Število unikatnih besed: ";
-        norm = 45000;
+        norm = 60000;
         visK = 50;
+        //naslov_grafa(4);
     } else if(dr == 4) {
         sT = "Število besed: ";
         sirK = 145;
     }
-
     if(dr == 1 || dr == 2 || dr == 3) {
         //console.log(parseInt((mouseX-10)/((w-20)/132)));
         var temp = tekstI.split("\n");
@@ -72,18 +85,25 @@ function draw() {
             tempU = tekstU.split("\n");
         //console.log(temp);
         //console.log(tempU);
-        var indeks = parseInt((mouseX - 10) / ((w - 20) / 132));
+        var indeks = parseInt((mouseX - 40) / ((w - odmik) / 132));
         //console.log(indeks);
         if (indeks >= 0 && indeks < 132) {
             var visina = temp[indeks].substring(34, temp[indeks].length);
             var max_v = ((windowHeight / 2) / norm) * (visina);
+
             if (((mouseY - windowHeight / 2) * -1) > 0 && ((mouseY - windowHeight / 2) * -1) < max_v) {
                 //console.log("dela");
                 var s = temp[indeks].substring(8, 10) + ". " + temp[indeks].substring(5, 7) + ". " + temp[indeks].substring(0, 4) + "\n" + sT + "" + visina;
                 if(dr == 3) {
                     var visinaU = tempU[indeks].substring(34, tempU[indeks].length);
+
+
                     s = s + "\n" + sU + "" + visinaU;
                 }
+
+                dan_test_klik = temp[indeks].substring(8, 10);
+                mesec_test_klik = temp[indeks].substring(5, 7);
+                leto_test_klik =  temp[indeks].substring(0, 4);
 
                 fill(clrB);
                 stroke(clrB);
@@ -92,38 +112,42 @@ function draw() {
                 textSize(14);
                 if (indeks < 100) {
                     fill(clrB);
-                    rect(((indeks + 1) * ((w - 20) / 132)) - 2, (windowHeight / 2) + 50, sirK, visK);
+                    rect(((indeks + 1) * ((w - odmik) / 132)) - 2, (windowHeight / 2) + 50, sirK, visK);
                     fill(clr);
-                    text(s, (indeks + 1) * ((w - 20) / 132), (windowHeight / 2) + 50, sirK, visK); // Text wraps within text box
+                    text(s, (indeks + 1) * ((w - odmik) / 132), (windowHeight / 2) + 50, sirK, visK); // Text wraps within text box
                 } else {
                     fill(clrB);
-                    rect(((100) * ((w - 20) / 132)) - 2, (windowHeight / 2) + 50, sirK, visK);
+                    rect(((100) * ((w - odmik) / 132)) - 2, (windowHeight / 2) + 50, sirK, visK);
                     fill(clr);
-                    text(s, (100) * ((w - 20) / 132), (windowHeight / 2) + 50, sirK, visK);
+                    text(s, (100) * ((w - odmik) / 132), (windowHeight / 2) + 50, sirK, visK);
                 }
+            }else {
+                dan_test_klik = "";
+                mesec_test_klik = "";
+                leto_test_klik = "";
             }
         }
     } else if(dr == 4) {
-        //console.log(parseInt((mouseX-10)/((w-20)/132)));
-        var indeks = parseInt((mouseX - 10) / ((w - 20) / tabG.length));
+        //console.log(parseInt((mouseX- 40)/((w-odmik)/tabG.length)));
+        var indeks = parseInt((mouseX - 40) / ((w - odmik) / tabG.length));
         //console.log(indeks);
         if (indeks >= 0 && indeks < tabG.length) {
             var visina = parseInt(tabS[indeks].substring(2, tabS[indeks].length));
             var max_v = ((windowHeight / 2) / maxNorm) * (visina) + 100;
             if (((mouseY - windowHeight / 2) * -1) > 0 && ((mouseY - windowHeight / 2) * -1) < max_v) {
                 //console.log("dela");
+
                 var stBes = parseInt(tabG[indeks].substring(1, tabG[indeks].length-1), 10);
                 var s = "Dolžina besede: " + stBes + "\n" + sT + "" + visina;
-
                 fill(clrB);
                 stroke(clrB);
                 rect(0, (windowHeight / 2) + 50, (w), 200);
                 stroke(clr);
                 textSize(14);
                 fill(clrB);
-                rect(((w-20)/2)-100, (windowHeight / 2) + 50, sirK, visK);
+                rect(((w-odmik)/2)-100, (windowHeight / 2) + 50, sirK, visK);
                 fill(clr);
-                text(s, ((w-20)/2)-100, (windowHeight / 2) + 50, sirK, visK); // Text wraps within text box
+                text(s, ((w-odmik)/2)-100, (windowHeight / 2) + 50, sirK, visK); // Text wraps within text box
             }
         }
     }
@@ -132,6 +156,12 @@ function draw() {
 
 function colorButton(gumb, stGumb) {
     console.log("Pritisnjen je bil gumb " + gumb);
+    if(gumb === 1 || gumb === 2 || gumb === 4) {
+        document.getElementById("dan").value = "";
+        document.getElementById("mesec").value = "";
+        document.getElementById("leto").value = "";
+        //naslov_grafa(gumb);
+    }
     //document.getElementById("izbira"+gumb).style.backgroundColor = "#eaeaea";
     //document.getElementById("izbira"+gumb).style.backgroundColor = "#009900";
     document.getElementById("izbira"+gumb).style.backgroundColor = "#009900";
@@ -155,10 +185,18 @@ function myFunction() {
     var day = document.getElementById("dan").value;
     var month = document.getElementById("mesec").value;
     var year = document.getElementById("leto").value;
+
+    dan_test_klik ="";
+    mesec_test_klik ="";
+    leto_test_klik ="";
+
     var empty = 0;
     dr = 0;
+    mode = 4;
 
-    console.log(tekst);
+    console.log(mode);
+
+    //console.log(tekst);
 
     document.getElementById("dan").style.backgroundColor = "white";
     document.getElementById("mesec").style.backgroundColor = "white";
@@ -225,7 +263,7 @@ function myFunction() {
         //console.log(dirTemp);
         var regexNum = 1;
         odpriSejo(dirTemp, regexNum);
-        colorButton(3, 4);
+        colorButton(3, 5);
         return;
     } else {
         document.getElementById("izbraneSeje").innerHTML = "Seje, ki so potekale na izbran dan: "
@@ -235,7 +273,7 @@ function myFunction() {
             var regexNum = 1;
             var temp = day + ". " + month + ". " + year + " seja " + izhodi[i].substring(23, 25) + " del " + izhodi[i].substring(27, 28);
             $("#izbraneSeje").append("<button type='button' class='btn btn-link' style='color: white;' onclick='odpriSejo(\"" + dirTemp + "\", \"" + regexNum + "\"); colorButton(3, 5);'>" + temp + "</button>");
-            console.log(temp);
+            //console.log(temp);
             //console.log(dirTemp);
         }
         return;
@@ -243,6 +281,9 @@ function myFunction() {
 
 }
 
+/**
+ * Funkcija, ki izbriše vsebino opomb
+ */
 function clearIzbraneSejeText() {
     document.getElementById("izbraneSeje").innerHTML = "";
 }
@@ -263,6 +304,7 @@ function sestaviTempDir(gumb) {
 
     if(gumb == 1) {
         dr = -1;
+        mode = 4;
         var dir = "data/SlovParl-ana/SteviloBesedNaGovorca/";
         var len = 0;
         if(dirTemp.includes(dir))
@@ -276,6 +318,7 @@ function sestaviTempDir(gumb) {
         //console.log("Uporabljen je bil dirHere");
     }else if(gumb == 2){
         dr = 4;
+        mode = 5;
         var dir = "data/SlovParl-ana/SeznamDolzineBesedNaSejo/";
         var len = 0;
         if(dirTemp.includes(dir))
@@ -319,12 +362,12 @@ function odpriSejo(dir, regex) {
         console.log(velikost);
         if(regex == 2) {
             dr = -1;
-            var x = (windowWidth - 20) / 8 / 2 + 10;
+            var x = (windowWidth - 20) / 8 / 2 + 30;
             var y = (windowHeight) / velikost / 2;
             //console.log(parseInt(tabS[0].substring(2, tabS[0].length)));
             izrisGovorcev(tabG, tabS, x, y, velikost, parseInt(tabS[0].substring(2, tabS[0].length)));
         }else if(regex == 4) {
-            var x = 20;
+            var x = 40;
             var y = windowHeight / 2;
             izris_dolzine_besed(tabS, x, y, tabS.length);
         }
@@ -344,6 +387,7 @@ function odpriSejo(dir, regex) {
  * @param normalizacija
  */
 function izrisGovorcev(tabGov, tabSt, x, y, velikost, normalizacija) {
+    naslov_grafa(6);
     var dolzina = tabGov.length;
     console.log(dolzina);
     var xS = 20;
@@ -361,14 +405,26 @@ function izrisGovorcev(tabGov, tabSt, x, y, velikost, normalizacija) {
         }
         //console.log(y + " | " + norma + " | " + yS);
         ellipse(x, y, norma);
-        var s = "Govorec:\n" + tabGov[i].substring(2,tabGov[i].length-1) + "\n" + "Število besed: " + st + "";
+        var vn = tabGov[i].substring(2,tabGov[i].length-1).replace(/[0-9]/g, '');
+        var vn_test = "";
+        vn_test += vn.charAt(0);
+
+        for(var j=1; j<vn.length; j++){
+            if(vn.charAt(j) == vn.charAt(j).toUpperCase()) {
+                vn_test += ' ' + vn.charAt(j);
+            }
+            else{
+                vn_test += vn.charAt(j);
+            }
+        }
+        var s = "Govorec:\n" + vn_test + "\n" + "Število besed: " + st + "";
         text(s,xS,yS,(windowWidth - 20) / 6,50);
         x = x + (windowWidth - 20) / 6;
         xS = xS + (windowWidth - 20) / 6;
         if(i%5 == 4) {
             y = y + (windowHeight)/velikost;
-            x = (windowWidth-20)/8/2;
-            xS = 10;
+            x = (windowWidth-20)/8/2 +30;
+            xS = 20;
         }
         if(i == 9)
             break;
@@ -389,6 +445,7 @@ function loadAll(tip) {
 
     if(tip == 1) {
         dr = 1;
+        mode = 1;
         //document.getElementById("izbraneSeje").innerHTML = "Prikaz števila tem obravnavanih na sejah";
 
         izhodi = myFunction3(regex, tekst);
@@ -396,6 +453,7 @@ function loadAll(tip) {
         naloziTeme();
     } else if(tip == 2) {
         dr = 2;
+        mode = 2;
         //document.getElementById("izbraneSeje").innerHTML = "Prikaz števila besed izgovorjenih na sejah";
 
         izhodi = myFunction3(regex, tekst);
@@ -403,6 +461,7 @@ function loadAll(tip) {
         naloziBesede();
     } else if(tip == 3) {
         dr = 3;
+        mode = 3;
         //document.getElementById("izbraneSeje").innerHTML = "Prikaz razmerja števila besed in unikatnih besed izgovorjenih na sejah";
 
         izhodi = myFunction3(regex, tekst);
@@ -490,19 +549,23 @@ function loadTxt() {
             clear();
             setup();
 
-            izrisCasovnice();
+            naslov_grafa(1);
 
-            var x = 20;
+            var x = 40;
             var y = windowHeight / 2;
             var res = tekstI.split("\n");
             dr = 1;
+            najvecja_visina = 0;
+            stevilo_tem = 0;
+
             for (var i = 0; i < izhodi.length; i++) {
                 //dirTemp = dir+izhodi[i];
                 //openXml(dirTemp,x,y,izhodi.length);
                 vse_seje2(res, i, x, y, izhodi.length, 50, clr);
                 //x = x + (windowWidth - 20) / izhodi.length;
-                x = x + (w - 30) / izhodi.length;
+                x = x + (w - odmik) / izhodi.length;
             }
+            izrisCasovnice();
             //console.log(testTab);
         });
     });
@@ -512,19 +575,50 @@ function loadTxt() {
  * Funkcija za izris časovnice
  */
 function izrisCasovnice() {
-    var x1 = 20;
+    var x1 = 40;
     var y = (windowHeight / 2)+10;
-    var x2 = 0;
+    //var x2 = 0;
 
     var st1990 = 0;
     var st1991 = 0;
     var st1992 = 0;
-
     strokeWeight(2);
     stroke(clr);
-    //line(10, y, windowWidth-10, y);
+    var visina_napis = (windowHeight / 2)+ najvecja_visina;
+
+    line(x1-10, y-10, x1-10,visina_napis);
     line(x1, y, w-10, y);
 
+    fill(clr);
+    line(x1-15, visina_napis, x1-5, visina_napis);
+    line(x1-15, (((windowHeight / 2)-visina_napis)/2+visina_napis), x1-5, (((windowHeight / 2)-visina_napis)/2+visina_napis));
+    line(x1-15, (windowHeight / 2), x1-5, (windowHeight / 2));
+
+    // save drawing state for later
+    push();
+
+    // rotate by 45 degrees
+    rotate(radians(90));
+
+    translate(-5,-40);
+    //translate(0, -600);
+
+    strokeWeight(1);
+    /**
+     * Brez rotacije
+     */
+    //text(stevilo_tem,x1-10,visina_napis);
+    //text(stevilo_tem/2,x1-10,(((windowHeight / 2)-visina_napis)/2+visina_napis));
+    //text(0,x1-10,(windowHeight / 2));
+
+    textAlign(CENTER);
+    text(stevilo_tem,visina_napis+4, x1-10);
+    text(stevilo_tem/2,(((windowHeight / 2)-visina_napis)/2+visina_napis)+4,x1-10);
+    textAlign(LEFT);
+    text(0,(windowHeight / 2)+1,x1-10);
+
+    //restore previous drawing state
+    pop();
     for(var i = 0; i < 12; i++) {
         st1990 += tab1990[i];
         st1991 += tab1991[i];
@@ -532,7 +626,7 @@ function izrisCasovnice() {
     }
 
     console.log(st1990 + " " + st1991 + " " + st1992);
-
+    strokeWeight(2);
     line(x1, y+5, x1, y-5);
     strokeWeight(1);
     fill(clr);
@@ -540,7 +634,10 @@ function izrisCasovnice() {
 
     //x2 = x1 + (windowWidth-20)/(st1990*132);
     //x1 = x1 + ((windowWidth-20)/132)*st1990;
-    x1 = x1 + ((w-30)/132)*st1990;
+    /**
+     * w -10-x1 = w - odmik
+     */
+    x1 = x1 + ((w-odmik)/132)*st1990;
     //console.log(x1);
     strokeWeight(2);
     line(x1, y+5, x1, y-5);
@@ -548,14 +645,14 @@ function izrisCasovnice() {
     text("1991",x1-10,y+20);
 
     //x1 = x1 + ((windowWidth-20)/132)*st1991;
-    x1 = x1 + ((w-30)/132)*st1991;
+    x1 = x1 + ((w-odmik)/132)*st1991;
     strokeWeight(2);
     line(x1, y+5, x1, y-5);
     strokeWeight(1);
     text("1992",x1-10,y+20);
 
     //x1 = x1 + ((windowWidth-20)/132)*st1992;
-    x1 = x1 + ((w-30)/132)*st1992;
+    x1 = x1 + ((w-odmik)/132)*st1992;
     strokeWeight(2);
     line(x1, y+5, x1, y-5);
     strokeWeight(1);
@@ -566,13 +663,55 @@ function izrisCasovnice() {
  * Izris casovnice za dolzine besed
  */
 function izrisDolzineBesed() {
-    var x1 = 20;
+    var x1 = 40;
     var y = (windowHeight / 2)+10;
     var x2 = 0;
 
     var najkrajsa = parseInt(tabG[0].substring(1,tabG[0].length-1),10);
     var najdalsa = parseInt(tabG[tabG.length-1].substring(1, tabG[tabG.length-1].length-1), 10);//najdalsa.substring(1,najdalsa.length-1)
 
+
+    strokeWeight(2);
+    stroke(clr);
+    var visina_napis = (windowHeight / 2)+ najvecja_visina;
+
+    line(x1-10, y-10, x1-10,visina_napis);
+    line(x1, y, w-10, y);
+
+    fill(clr);
+    line(x1-15, visina_napis, x1-5, visina_napis);
+    line(x1-15, (((windowHeight / 2)-visina_napis)/2+visina_napis), x1-5, (((windowHeight / 2)-visina_napis)/2+visina_napis));
+    line(x1-15, (windowHeight / 2), x1-5, (windowHeight / 2));
+
+    // save drawing state for later
+    push();
+
+    // rotate by 45 degrees
+    rotate(radians(90));
+
+    translate(-5,-40);
+    //translate(0, -600);
+
+    strokeWeight(1);
+    /**
+     * Brez rotacije
+     */
+    //text(stevilo_tem,x1-10,visina_napis);
+    //text(stevilo_tem/2,x1-10,(((windowHeight / 2)-visina_napis)/2+visina_napis));
+    //text(0,x1-10,(windowHeight / 2));
+
+    textAlign(CENTER);
+
+    text(stevilo_tem,visina_napis+4, x1-10);
+    text(Math.round(stevilo_tem/2),(((windowHeight / 2)-visina_napis)/2+visina_napis)+4, x1-10);
+    textAlign(LEFT);
+    text(0,(windowHeight / 2)+1, x1-10);
+
+    //restore previous drawing state
+    pop();
+
+
+    //textAlign(LEFT);
     strokeWeight(2);
     stroke(clr);
     //line(10, y, windowWidth-10, y);
@@ -611,6 +750,12 @@ function vse_seje2(tekstF, dir,x,y,dolzina, normalizacija, color) {
     var teme = parseInt(tekstF[dir].substring(34, tekstF[dir].length));
     fill(color);
     //rect(x,y,(windowWidth-20)/dolzina, ((windowHeight/2)/normalizacija)*(-teme));
+    if(najvecja_visina > ((windowHeight/2)/normalizacija)*(-teme)) {
+        najvecja_visina = ((windowHeight / 2) / normalizacija) * (-teme);
+        stevilo_tem = teme;
+    }
+    //console.log("max visina je " + najvecja_visina);
+    //console.log("stevilo tem pa " + stevilo_tem);
     rect(x,y,(w-20)/dolzina, ((windowHeight/2)/normalizacija)*(-teme));
 }
 /**
@@ -625,22 +770,30 @@ function vse_seje2(tekstF, dir,x,y,dolzina, normalizacija, color) {
 function izris_dolzine_besed(tekstF,x,y,dolzina) {
     var normalizacija = 0;
     var teme = 0;
+    najvecja_visina = 0;
+    stevilo_tem = 0;
     for(var i = 0 ; i < tekstF.length;i++) {
         if(parseInt(tekstF[i].substring(2, tekstF[i].length)) > normalizacija) {
             normalizacija = parseInt(tekstF[i].substring(2, tekstF[i].length));
         }
     }
-
+    naslov_grafa(5);
     normalizacija += 1000;
     maxNorm = normalizacija;
-    izrisDolzineBesed();
     fill(clr);
     //rect(x,y,(windowWidth-20)/dolzina, ((windowHeight/2)/normalizacija)*(-teme));
     for(var i = 0; i < tekstF.length; i++) {
         teme = parseInt(tekstF[i].substring(2, tekstF[i].length));
-        rect(x,y,(w-30)/dolzina, ((windowHeight/2)/normalizacija)*(-teme));
-        x = x + (w - 30) / tekstF.length;
+        if(najvecja_visina > ((windowHeight/2)/normalizacija)*(-teme)){
+            najvecja_visina = ((windowHeight/2)/normalizacija)*(-teme);
+            stevilo_tem = teme;
+        }
+        rect(x,y,(w-odmik)/dolzina, ((windowHeight/2)/normalizacija)*(-teme));
+        x = x + (w - odmik) / tekstF.length;
     }
+    //console.log("Dolzina besed max : " + teme);
+    //console.log("najvecja visina : " + najvecja_visina);
+    izrisDolzineBesed();
 }
 
 /**
@@ -660,17 +813,20 @@ function naloziTeme() {
             tekstI = result;
         }
     }).then(function () {
-        var x = 20;
+        naslov_grafa(1);
+        var x = 40;
         var y = windowHeight / 2;
         var res = tekstI.split("\n");
-        izrisCasovnice();
+        najvecja_visina = 0;
+        stevilo_tem = 0;
         for (var i = 0; i < izhodi.length; i++) {
             //dirTemp = dir + izhodi[i];
             //openXml(dirTemp, x, y, izhodi.length);
             vse_seje2(res, i, x, y, izhodi.length, 50, clr);
             //x = x + (windowWidth - 20) / izhodi.length;
-            x = x + (w - 30) / izhodi.length;
+            x = x + (w - 50) / izhodi.length;
         }
+        izrisCasovnice();
         //console.log(testTab);
     });
 }
@@ -692,17 +848,19 @@ function naloziBesede() {
             tekstI = result;
         }
     }).then(function () {
-        var x = 20;
+        naslov_grafa(2);
+        var x = 40;
         var y = windowHeight / 2;
         var res = tekstI.split("\n");
-        izrisCasovnice();
+
         for (var i = 0; i < izhodi.length; i++) {
             //dirTemp = dir + izhodi[i];
             //openXml(dirTemp, x, y, izhodi.length);
-            vse_seje2(res, i, x, y, izhodi.length, 45000, clr);
+            vse_seje2(res, i, x, y, izhodi.length, 60000, clr);
             //x = x + (windowWidth - 20) / izhodi.length;
-            x = x + (w - 30) / izhodi.length;
+            x = x + (w - 50) / izhodi.length;
         }
+        izrisCasovnice();
         //console.log(testTab);
     });
 }
@@ -733,20 +891,96 @@ function naloziRazmerje() {
                 tekstU = result;
             }
         }).then(function () {
-            var x = 20;
+            naslov_grafa(4);
+            var x = 40;
             var y = windowHeight / 2;
             var res = tekstI.split("\n");
             var resU = tekstU.split("\n");
-            izrisCasovnice();
+            najvecja_visina = 0;
+            stevilo_tem = 0;
             for (var i = 0; i < izhodi.length; i++) {
                 //dirTemp = dir + izhodi[i];
                 //openXml(dirTemp, x, y, izhodi.length);
-                vse_seje2(res, i, x, y, izhodi.length, 45000, clr);
-                vse_seje2(resU, i, x, y, izhodi.length, 45000, clr2);
+                vse_seje2(res, i, x, y, izhodi.length, 60000, clr);
+                vse_seje2(resU, i, x, y, izhodi.length, 60000, clr2);
                 //x = x + (windowWidth - 20) / izhodi.length;
-                x = x + (w - 30) / izhodi.length;
+                x = x + (w - 50) / izhodi.length;
             }
+            izrisCasovnice();
             //console.log(testTab);
         });
     });
+}
+
+/**
+ * Funkcija za izbor seje
+ */
+function mouseClicked() {
+    if(dan_test_klik.length>1 && mesec_test_klik > 1 && leto_test_klik > 3) {
+        console.log(dan_test_klik);
+        console.log(mesec_test_klik);
+        console.log(leto_test_klik);
+        document.getElementById("dan").value = dan_test_klik;
+        document.getElementById("mesec").value = mesec_test_klik;
+        document.getElementById("leto").value = leto_test_klik;
+    }
+}
+
+/**
+ * Funkcija za vklop overlaya
+ */
+function on() {
+    document.getElementById("overlay").style.display = "block";
+}
+
+/**
+ * Funkcija za izklop overlaya
+ */
+function off() {
+    document.getElementById("overlay").style.display = "none";
+}
+
+/**
+ * Funkcija za dinamičen resize canvasa
+ * @param event
+ */
+window.onresize = function(event) {
+    clear();
+    setup();
+    console.log(mode);
+    if(mode == 1 || mode == 2 || mode == 3)
+        loadAll(mode);
+    else if(mode == 4)
+        sestaviTempDir(1);
+    else
+        sestaviTempDir(2);
+};
+
+/**
+ * Funkcija za izpis naslova prikazanega grafa
+ * @param index - tekst, ki ga izpiše
+ */
+function naslov_grafa(index){
+    textAlign(CENTER);
+    fill(0, 0, 0);
+    textSize(20);
+    if(index===1) {
+        text("Število tem na sejah", width/2, 40);
+        console.log("Število tem na sejah");
+    }
+    else if(index === 2){
+        text("Število besed na sejah", width/2, 40);
+        console.log("Število besed na sejah");
+    }
+    else if(index === 4){
+        text("Razmerje vseh in unikatnih besed", width/2, 40);
+        console.log("Razmerje vseh in unikatnih besed");
+    }
+    else if(index === 5) {
+        text("Dolžina izgovorjenih besed na seji dne " + document.getElementById("dan").value + "." + document.getElementById("mesec").value + "." + document.getElementById("leto").value, width / 2, 40);
+    }
+    else if(index === 6) {
+        text("Število besed na govorca na seji dne " + document.getElementById("dan").value + "." + document.getElementById("mesec").value + "." + document.getElementById("leto").value, width / 2, 40);
+    }
+    textSize(12);
 }
